@@ -1,0 +1,39 @@
+import Std.Base
+import Std.HTTP
+
+
+
+class Workspace :
+    id :: Text
+    name :: Text
+    goalStats :: GoalStats
+
+class GoalStats :
+    total :: Int
+    accomplished :: Int
+    toAccomplish :: Int
+
+«3»def fetchWorkspaces url :
+    «9»workspacesJSON = Http.get "http://www.mocky.io/v2/5cc807c3300000680b055e9c" . perform . json . asList 
+    «5»workspaces = workspacesJSON  
+        . map (json : 
+            «24»Workspace 
+                (json . get "workspace" . get  "id"   . asText )
+                (json . get "workspace" . get  "name" . asText )
+                (GoalStats 
+                    (json . get "workspace" . get  "goalStats" . get "total" . asInt)
+                    (json . get "workspace" . get  "goalStats" . get "accomplished" . asInt)
+                    (json . get "workspace" . get  "goalStats" . get "toAccomplish" . asInt)))
+    workspaces                
+
+«17»def foldtotalGoalsDefined workspace result :
+    «19»Workspace id name goalStats = workspace
+    «20»GoalStats total accomplished toAccomplish = goalStats
+    «25»result + total
+
+«10»def main:
+    «12»workspaces = fetchWorkspaces "http://www.mocky.io/v2/5cc807c3300000680b055e9c" 
+    «14»totalGoalsDefined = workspaces . fold 0 (workspace: result: «23»foldtotalGoalsDefined workspace result)           
+    None
+
+### META {"metas":[{"marker":19,"meta":{"_displayResult":false,"_selectedVisualizer":null,"_position":{"fromPosition":{"_vector2_y":320,"_vector2_x":0}}}},{"marker":20,"meta":{"_displayResult":false,"_selectedVisualizer":null,"_position":{"fromPosition":{"_vector2_y":320,"_vector2_x":320}}}},{"marker":25,"meta":{"_displayResult":false,"_selectedVisualizer":null,"_position":{"fromPosition":{"_vector2_y":320,"_vector2_x":640}}}},{"marker":9,"meta":{"_displayResult":false,"_selectedVisualizer":null,"_position":{"fromPosition":{"_vector2_y":224,"_vector2_x":0}}}},{"marker":5,"meta":{"_displayResult":false,"_selectedVisualizer":null,"_position":{"fromPosition":{"_vector2_y":0,"_vector2_x":0}}}},{"marker":24,"meta":{"_displayResult":false,"_selectedVisualizer":null,"_position":{"fromPosition":{"_vector2_y":0,"_vector2_x":0}}}},{"marker":12,"meta":{"_displayResult":true,"_selectedVisualizer":["LunaVisualizer: base: json","base/json/json.html"],"_position":{"fromPosition":{"_vector2_y":0,"_vector2_x":0}}}},{"marker":14,"meta":{"_displayResult":true,"_selectedVisualizer":["LunaVisualizer: base: json","base/json/json.html"],"_position":{"fromPosition":{"_vector2_y":0,"_vector2_x":320}}}},{"marker":23,"meta":{"_displayResult":false,"_selectedVisualizer":null,"_position":{"fromPosition":{"_vector2_y":0,"_vector2_x":0}}}}]}

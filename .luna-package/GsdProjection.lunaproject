@@ -1,0 +1,28 @@
+modulesSettings:
+  src/Main.luna:
+    typeRepToVisMap: []
+    currentBreadcrumb: main
+    breadcrumbsSettings:
+    - - items: []
+      - breadcrumbCameraSettings:
+          logicalToScreen: ! '[[1.0,0.0,0.0,0.0],[0.0,1.0,0.0,0.0],[0.0,0.0,1.0,0.0],[0.0,0.0,0.0,1.0]]'
+          screenToLogical: ! '[[1.0,0.0,0.0,0.0],[0.0,1.0,0.0,0.0],[0.0,0.0,1.0,0.0],[0.0,0.0,0.0,1.0]]'
+          lastInverse: 0
+    - - items:
+        - fetchWorkspaces
+      - breadcrumbCameraSettings:
+          logicalToScreen: ! '[[1.0,0.0,0.0,0.0],[0.0,1.0,0.0,0.0],[0.0,0.0,1.0,0.0],[-160.0,0.0,0.0,1.0]]'
+          screenToLogical: ! '[[1.0,0.0,0.0,0.0],[0.0,1.0,0.0,0.0],[0.0,0.0,1.0,0.0],[160.0,0.0,0.0,1.0]]'
+          lastInverse: 2
+    - - items:
+        - main
+      - breadcrumbCameraSettings:
+          logicalToScreen: ! '[[0.998046875,0.0,0.0,0.0],[0.0,0.998046875,0.0,0.0],[0.0,0.0,1.0,0.0],[7.8125e-3,-16.912109375,0.0,1.0]]'
+          screenToLogical: ! '[[1.0019569471624266,0.0,0.0,0.0],[0.0,1.0019569471624266,0.0,0.0],[0.0,0.0,1.0,0.0],[-7.827788649706457e-3,16.945205479452053,0.0,1.0]]'
+          lastInverse: 0
+    - - items:
+        - parseWorkspaceJson
+      - breadcrumbCameraSettings:
+          logicalToScreen: ! '[[1.0,0.0,0.0,0.0],[0.0,1.0,0.0,0.0],[0.0,0.0,1.0,0.0],[-160.0,-320.0,0.0,1.0]]'
+          screenToLogical: ! '[[1.0,0.0,0.0,0.0],[0.0,1.0,0.0,0.0],[0.0,0.0,1.0,0.0],[160.0,320.0,0.0,1.0]]'
+          lastInverse: 2
