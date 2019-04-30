@@ -18,32 +18,31 @@ class OverallStats :
     accomplishedGals :: Int
     toAccomplishGoals :: Int
 
-«0»def fetchWorkspaces uri :
-    «4»workspacesJSON = (Http.get uri) . perform . json . asList 
-    «5»workspacesJSON  
-        . map (json : 
-            «14»Workspace 
+def fetchWorkspaces uri :
+    workspacesJSON = (Http.get uri) . perform . json . asList
+    workspacesJSON
+        . map (json :
+            Workspace
                 (json . get "workspace" . get  "id"   . asText )
                 (json . get "workspace" . get  "name" . asText )
-                (GoalStats 
+                (GoalStats
                     (json . get "workspace" . get  "goalStats" . get "total" . asInt)
                     (json . get "workspace" . get  "goalStats" . get "accomplished" . asInt)
                     (json . get "workspace" . get  "goalStats" . get "toAccomplish" . asInt)))
-    
 
 
-«1»def folding workspace currentOverallStats :
-    «7»Workspace id name goalStats = workspace
-    «8»GoalStats total accomplished toAccomplish = goalStats
-    «9»OverallStats  nbWorkspaces overallTotal overallAccomplished overallToAccomplish = currentOverallStats
-    «10»OverallStats (nbWorkspaces + 1) (overallTotal + total) (overallAccomplished + accomplished) (overallToAccomplish + toAccomplish)
-    
 
-«2»def init : «11»OverallStats 0 0 0 0 
+def folding workspace currentOverallStats :
+    Workspace id name goalStats = workspace
+    GoalStats total accomplished toAccomplish = goalStats
+    OverallStats  nbWorkspaces overallTotal overallAccomplished overallToAccomplish = currentOverallStats
+    OverallStats (nbWorkspaces + 1) (overallTotal + total) (overallAccomplished + accomplished) (overallToAccomplish + toAccomplish)
 
-«3»def main:
-    «12»uri = "http://www.mocky.io/v2/5cc807c3300000680b055e9c" 
-    «13»overallGoalStats = (fetchWorkspaces uri) . fold init folding 
+
+def init : OverallStats 0 0 0 0
+
+def main:
+    mockedFetchWorkspacesURI = "http://www.mocky.io/v2/5cc85c7b3000000b3d056195" 
+    workspaces = (fetchWorkspaces mockedFetchWorkspacesURI)
+    overallGoalStats = workspaces . fold init folding
     None
-
-### META {"metas":[{"marker":7,"meta":{"_displayResult":false,"_selectedVisualizer":null,"_position":{"fromPosition":{"_vector2_y":320,"_vector2_x":0}}}},{"marker":8,"meta":{"_displayResult":false,"_selectedVisualizer":null,"_position":{"fromPosition":{"_vector2_y":320,"_vector2_x":320}}}},{"marker":9,"meta":{"_displayResult":false,"_selectedVisualizer":null,"_position":{"fromPosition":{"_vector2_y":0,"_vector2_x":320}}}},{"marker":10,"meta":{"_displayResult":false,"_selectedVisualizer":null,"_position":{"fromPosition":{"_vector2_y":0,"_vector2_x":640}}}},{"marker":4,"meta":{"_displayResult":false,"_selectedVisualizer":null,"_position":{"fromPosition":{"_vector2_y":0,"_vector2_x":0}}}},{"marker":5,"meta":{"_displayResult":false,"_selectedVisualizer":null,"_position":{"fromPosition":{"_vector2_y":0,"_vector2_x":320}}}},{"marker":14,"meta":{"_displayResult":false,"_selectedVisualizer":null,"_position":{"fromPosition":{"_vector2_y":0,"_vector2_x":0}}}},{"marker":11,"meta":{"_displayResult":false,"_selectedVisualizer":null,"_position":{"fromPosition":{"_vector2_y":0,"_vector2_x":0}}}},{"marker":12,"meta":{"_displayResult":false,"_selectedVisualizer":null,"_position":{"fromPosition":{"_vector2_y":0,"_vector2_x":0}}}},{"marker":13,"meta":{"_displayResult":false,"_selectedVisualizer":null,"_position":{"fromPosition":{"_vector2_y":0,"_vector2_x":320}}}}]}
