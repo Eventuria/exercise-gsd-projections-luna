@@ -1,6 +1,6 @@
 # GSD projections over Luna
 
-This repository is a simple projection of the GSD read model with the Luna Language :
+This repository is a simple GSD-Read model projection developed in Luna :
 <p align="center">
   <img src="docs/visual.jpg">
 </p>
